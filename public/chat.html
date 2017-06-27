@@ -28,6 +28,7 @@ $(function(){
         ws = io.connect();
         ws.on('connect', function(){
         	ws.emit('login', {id:id});
+		$('#btnConnect').attr('disabled','disabled');
 		
         });
         ws.on('msg', function(data){
@@ -47,11 +48,12 @@ $(function(){
     	ws.emit('logout', {id: id});
     	$('#id').val('');
         ws.close();
+	$('#btnConnect').removeAttr('disabled');
     });
 
     function users(data){
 	$('#user').empty();
-	
+	$('#user').append('<h3>Users</h3><br/>');
 	for(var count=0;count<data.length;count++)
 	{	var option = data[count]+"<br/>";
 		$('#user').append(option);
@@ -83,10 +85,7 @@ $(function(){
     <input type="text" id="msg"/>
     <button id="btnSend">Send</button>
 </div>
-<div id="users">
-	<h3>User</h3>
-</div>
-<div id='user'</div>
+<div id='user' style='position:absolute; left:0px; top:0px'></div>
 
 </body>
 </html>
