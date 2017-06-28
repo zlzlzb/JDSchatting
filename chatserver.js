@@ -20,6 +20,7 @@ io.on('connection', function(socket){
 	console.log('connected.' + socket.id);
 	socket.on('login', function(data){
 		io.emit('msg',{text : data.id +' has connected.'} );
+		console.log('connected ' + data.id);
 		users.push(data.id);
 		io.emit('users',{userlist:users});
 	});
@@ -28,6 +29,7 @@ io.on('connection', function(socket){
 	});
 	socket.on('logout', function(data){
 		io.emit('msg', {text : data.id + ' has disconnected.' });
+		console.log('disconnected ' + data.id);
 		users.pop(data.id);
 		io.emit('users',{userlist:users});
 	});
